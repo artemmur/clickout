@@ -47,7 +47,7 @@ module Fluent
       config_param :retryable_response_codes, :array, value_type: :integer, default: [503]
 
       config_section :buffer do
-        config_set_default :@type, "file"
+        config_set_default :@type, "memory"
         config_set_default :chunk_keys, ["time"]
         config_set_default :flush_at_shutdown, true
         config_set_default :timekey, DEFAULT_TIMEKEY
@@ -97,7 +97,7 @@ module Fluent
           record[@datetime_name] = timestamp + @tz_offset * 60
         end
 
-        return json.dump(record) + "\n"
+        return JSON.dump(record) + "\n"
       end
 
       def write(chunk)
